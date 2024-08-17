@@ -31,6 +31,7 @@ def moves_from(i: int, j: int, my_power: int, curr_board)  :
 
 hero_cache = {}
 def get_max_heroi(i: int, j: int) -> int:
+    start_power = board[i][j]
     start = [board[x[0]][x[1]] for x in moves_from(i, j, board[i][j], board)]
     for m in start:
         if m in hero_cache:
@@ -46,7 +47,7 @@ def get_max_heroi(i: int, j: int) -> int:
     while True:
         moves = moves_from(posi, posj, power, board_copy)
         if len(moves) == 0 or all(board_copy[x[0]][x[1]] == 0 for x in moves):
-            hero_cache[(i*10)+j] = power
+            hero_cache[start_power] = power
             return power
         move = min(moves, key=lambda x: board_copy[x[0]][x[1]] if board_copy[x[0]][x[1]] > 0 else math.inf)
         power += board_copy[move[0]][move[1]]
